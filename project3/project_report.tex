@@ -1,0 +1,23 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{graphicx}
+\usepackage{geometry}
+\title{EI338 OS Project Report3}
+\author{陈子轩}
+\geometry{a4paper,left=2cm,right=2cm,top=1cm,bottom=1cm}
+\begin{document}
+
+\maketitle
+\section{Project 1—Sudoku Solution Validator}
+In this project, we create 11 threads. We assign 1 thread to check each row, 1 thread to check column and 9 threads to check 9 3 $\times$ 3 grids respectively. Our parameter struct is as follows
+\begin{verbatim}
+    struct param{
+        int id;
+        int valid;
+    };
+\end{verbatim}
+It's very simple, the \textbf{id} is the number of thread, we use it to determine the target of our inspection. The \textbf{valid} is the checking result. The checking methods is trivial, we omit it in our report.
+\section{Project 2—Multithreaded Sorting Application}
+This thread is to create two threads to sort half of the array. We just use insert sort method and it's trivial.
+\section{Project 3—Fork-Join Sorting Application}
+We choose QuickSort method to accomplish this project. For QuickSort method, we first split the sorting area into two parts: left parts whose element is less than key, and right part whose element is greater than key. Then we create two threads to QuickSort each part(the normal recursion in single thread QuickSort method).
+\end{document}

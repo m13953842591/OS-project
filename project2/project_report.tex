@@ -1,0 +1,47 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{graphicx}
+\usepackage{geometry}
+\title{EI338 OS Project Report2}
+\author{陈子轩}
+\geometry{a4paper,left=2cm,right=2cm,top=1cm,bottom=1cm}
+\begin{document}
+
+\maketitle
+\section{Project 1-UNIX Shell}
+\subsection{Design Idea}
+for the demands in this project, like using \& to determine concurrency, using !! to run history command, using $<$, $>$ to redirect I/O, etc. I both put this detection in one function, called \textbf{shell\_parser}. 
+\begin{verbatim}
+    int shell_parser(char * command, char ** args, char ** option);
+\end{verbatim} 
+
+this function take the \textbf{command} as input, which is the command string user just input. \textbf{args} is the argument list, just as the project demand. We put all our command observation in \textbf{option}, it is interpreted as follows.
+\begin{verbatim}
+    option[0]: if & exist in the end, assign to 1, else 0
+    option[1]: if !! exist, assign to 1, else 0
+    option[2]: record the redirect > file name, 0 if not exist
+    option[3]: record the redirect < file name, 0 if not exist 
+    option[4]: record pipe command name, 0 if not exist 
+\end{verbatim}
+for example , we input a  line of command 
+\begin{verbatim}
+    cat testfile > out.txt &
+\end{verbatim}
+then the option will be like
+\begin{verbatim}
+    option[0]: 1
+    option[1]: 0
+    option[2]: out.txt
+    option[3]: 0
+    option[4]: 0
+\end{verbatim}
+The advantage of this design idea is that it has strong expansibility. Suppose in the future we have to detect another kind of charactor or string, then we just add a new option and design detection techique in our \textbf{shell\_parser} function.
+\section{Project 2—Linux Kernel Module for Task Information}
+In this project we learned how to write to a proc file-- Setting the field .write in struct file operations to
+\begin{verbatim}
+    .write = proc write
+\end{verbatim} 
+We also learned using \textbf{pid\_task} function to get a pcb of a certain process.\\
+In this project, we use a global variable \textbf{pid} to record the pid of input process while writing to proc/task\_info file.
+and we get the pcb of the process in \textbf{proc\_read} function. So whenever the system reads the file, we output the pcb of it. 
+
+\end{document}

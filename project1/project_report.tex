@@ -1,0 +1,29 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{graphicx}
+\usepackage{geometry}
+\title{EI338 OS Project Report1}
+\author{陈子轩}
+\geometry{a4paper,left=2cm,right=2cm,top=1cm,bottom=1cm}
+\begin{document}
+
+\maketitle
+\section{Assignment1}
+With the \textbf{Proc File System}, this assignment is easy to accomplish. Simply add the following code to function \textbf{proc\_read}.
+\begin{verbatim}
+    rv = sprintf(buffer, "curent value of jiffies %lu\n", jiffies);
+
+    /*copies kernel space buffer to user space usr_buf */
+    raw_copy_to_user(usr_buf, buffer, rv);
+\end{verbatim}
+\section{Assignment2}
+We just calculate the curent time using the following foluma
+$$time = \frac{jiffies}{HZ}$$
+then add the code in the \textbf{proc\_read}
+\begin{verbatim}
+    long unsigned int t = jiffies / HZ;
+    rv = sprintf(buffer, "times elapsed: %lus\n", t);
+
+    /*copies kernel space buffer to user space usr_buf */
+    raw_copy_to_user(usr_buf, buffer, rv);
+\end{verbatim}
+\end{document}
